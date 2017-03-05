@@ -1,9 +1,5 @@
 #**Behavioral Cloning** 
 
-##Writeup Template
-
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
 ---
 
 **Behavioral Cloning Project**
@@ -26,29 +22,7 @@ The goals / steps of this project are the following:
 [image6]: ./examples/placeholder_small.png "Normal Image"
 [image7]: ./examples/placeholder_small.png "Flipped Image"
 
-## Rubric Points
-###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
-
 ---
-###Files Submitted & Code Quality
-
-####1. Submission includes all required files and can be used to run the simulator in autonomous mode
-
-My project includes the following files:
-* model.py containing the script to create and train the model
-* drive.py for driving the car in autonomous mode
-* model.h5 containing a trained convolution neural network 
-* writeup_report.md or writeup_report.pdf summarizing the results
-
-####2. Submission includes functional code
-Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
-```sh
-python drive.py model.h5
-```
-
-####3. Submission code is usable and readable
-
-The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
 ###Model Architecture and Training Strategy
 
@@ -57,6 +31,24 @@ The model.py file contains the code for training and saving the convolution neur
 My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
 
 The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
+
+
+| Layer         		    |     Description	        					            | 
+|:---------------------:|:---------------------------------------------:| 
+| Input         		    | 160x320x3 RGB image   							          | 
+| Normalisation       	| 1x1 Stride, Same padding, Outputs 32x32x64	  |
+| Max pooling	      	  | 2x2 Stride,  Outputs 16x16x64 				        |
+| Local Response Norm	  | Depth radius 5, Bias 1.0, Alpha 1.0, Beta 0.5 |
+| RELU					        |												                        |
+| Convolution 5x5     	| 1x1 Stride, Same padding, Outputs 16x16x64 	  |
+| Local Response Norm	  | Depth radius 5, Bias 1.0, Alpha 1.0, Beta 0.5 |
+| Max pooling	      	  | 2x2 Stride, Outputs 8x8x64 	 			            |
+| RELU					        |												                        |
+| Fully connected		    | Input 4096, Outputs 384      									|
+| Fully connected		    | Input 384, Outputs 192      									|
+| Dropout               | 0.5 Keep probability                          |
+| Fully connected		    | Input 192, Outputs 43       									|
+| Softmax				        |         									                    |
 
 ####2. Attempts to reduce overfitting in the model
 
