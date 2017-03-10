@@ -26,19 +26,18 @@ The goals / steps of this project are the following:
 | Layer         		    |     Description	        					            | 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		    | 160x320x3 RGB image   							          | 
-| Normalisation       	| 1x1 Stride, Same padding, Outputs 32x32x64	  |
-| Max pooling	      	  | 2x2 Stride,  Outputs 16x16x64 				        |
-| Local Response Norm	  | Depth radius 5, Bias 1.0, Alpha 1.0, Beta 0.5 |
-| RELU					        |												                        |
-| Convolution 5x5     	| 1x1 Stride, Same padding, Outputs 16x16x64 	  |
-| Local Response Norm	  | Depth radius 5, Bias 1.0, Alpha 1.0, Beta 0.5 |
-| Max pooling	      	  | 2x2 Stride, Outputs 8x8x64 	 			            |
-| RELU					        |												                        |
-| Fully connected		    | Input 4096, Outputs 384      									|
-| Fully connected		    | Input 384, Outputs 192      									|
-| Dropout               | 0.5 Keep probability                          |
-| Fully connected		    | Input 192, Outputs 43       									|
-| Softmax				        |         									                    |
+| Normalisation       	|                                           	  |
+| Cropping   	      	  | Outputs 65x328x3              				        |
+| Convolution 5x5   	  | Outputs 31x157x24                             |
+| Dropout             	| 0.5 Keep probability	                        |
+| Convolution 5x5   	  | Outputs 14x77x36                              |
+| Convolution 5x5       |	Outputs 5x37x48				                        |
+| Convolution 3x3		    | Outputs 3x35x64             									|
+| Convolution 3x3		    | Outputs 1x33x64             									|
+| Fully Connected Layer | Outputs 100 							                    |
+| Fully Connected Layer | Outputs 50 								                    |
+| Fully Connected Layer | Outputs 10       					                    |
+| Fully Connected Layer | Outputs 1                                     |
 
 ####2. Attempts to reduce overfitting in the model
 
