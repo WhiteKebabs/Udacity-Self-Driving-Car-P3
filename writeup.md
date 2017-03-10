@@ -41,13 +41,13 @@ The goals / steps of this project are the following:
 
 ####2. Attempts to reduce overfitting in the model
 
-The model contains a dropout layer in order to reduce overfitting (model.py lines 66). 
+The model contains a dropout layer in order to reduce overfitting (model.py lines 51). 
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 77). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 62). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 ####3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 76).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 61).
 
 ###Model Architecture and Training Strategy
 
@@ -67,7 +67,8 @@ As the course was circuit-like and initially I was only going counter-clockwise,
 
 ![image2]
 
-
 After the collection process, I had 27842 number of data points. I then preprocessed this data by cropping the upper 70 pixels and lower 25 pixels of the images as they contained nothing significant for the model to extract infomation from.
 
 Initially I tried training my model with 3 epochs, however as the models loss started to increase on the tird epoch, I decreased the number to 2, which achieved a loss of 0.01.
+
+Although my model had no difficulties staying on track, the car had trouble driving straight at times. To combat this, I recorded some training data that had the car drive towards the centre of the track from the edges.
