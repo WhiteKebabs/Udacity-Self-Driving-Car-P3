@@ -15,7 +15,7 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./figures/correct.jpg "Sample input"
-[image2]: ./figures/flipped "Augmented input"
+[image2]: ./figures/flipped.jpg "Augmented input"
 
 ---
 
