@@ -9,41 +9,50 @@ from keras.layers.pooling import MaxPooling2D
 from keras import backend as K
 import matplotlib.pyplot as plt
 
+# Open the CSV that has the camera images and steering angles
 images, measurements = [], []
 with open("./data/driving_log.csv") as csvfile:
     reader = csv.reader(csvfile)
     for line in reader:
 
+        # Extract steering angle for straight view
+        # Correct the steering angle for left and right cameras
         steering = float(line[3])
         measurements += [steering, steering + 0.1, steering - 0.1]
 
+        # Extract the three camera angles
         image_center = cv2.imread(line[0])
         image_left = cv2.imread(line[1])
         image_right = cv2.imread(line[2])
         images += [image_center, image_left, image_right]
 
+# Create augmented images from the dataset
 augmented_images, augmented_measurements = [], []
 for image, measurement in zip(images, measurements):
+
+    # Flip the image horizontally
     augmented_images.append(image)
-    augmented_measurements.append(measurement)
     augmented_images.append(cv2.flip(image,1))
+
+    # Negate the steering angle
+    augmented_measurements.append(measurement)
     augmented_measurements.append(measurement*-1.0)
 
+# Convert the training dataset and labels to Numpy arrays
 X_train = np.array(augmented_images)
 y_train = np.array(augmented_measurements)
 
 def compare_images(left_image, right_image):
-    print(image.shape)
     f, (ax1, ax2) = plt.subplots(1, 2, figsize=(24, 9))
     f.tight_layout()
     ax1.imshow(left_image)
-    ax1.set_title('Shape '+ str(left_image.shape),
-                  fontsize=50)
+    ax1.set_title('Shape '+ str(left_image.shape), fontsize=50)
     ax2.imshow(right_image)
-    ax2.set_title('Shape '+ str(right_image.shape)
-                  , fontsize=50)
+    ax2.set_title('Shape '+ str(right_image.shape), fontsize=50)
     plt.show()
 
+
+# Model Implementation
 model = Sequential()
 model.add(Lambda(lambda x: x/255.0 - 0.5, input_shape=(160, 320, 3)))
 model.add(Cropping2D(cropping=((70, 25), (1, 1))))
