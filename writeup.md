@@ -16,22 +16,12 @@ The goals / steps of this project are the following:
 
 [image1]: ./examples/placeholder.png "Model Visualization"
 [image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
 
 ---
 
 ###Model Architecture and Training Strategy
 
 ####1. An appropriate model architecture has been employed
-
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
-
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
-
 
 | Layer         		    |     Description	        					            | 
 |:---------------------:|:---------------------------------------------:| 
@@ -52,13 +42,13 @@ The model includes RELU layers to introduce nonlinearity (code line 20), and the
 
 ####2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
+The model contains a dropout layer in order to reduce overfitting (model.py lines 66). 
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 77). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 ####3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 76).
 
 ####4. Appropriate training data
 
@@ -84,38 +74,20 @@ The final step was to run the simulator to see how well the car was driving arou
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
-####2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
-
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
-
-![alt text][image1]
-
-####3. Creation of the Training Set & Training Process
+####2. Creation of the Training Set & Training Process
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
-![alt text][image2]
+![image1]
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+The biggest issue I encountered during the training process was getting the car to make sharp turns between striped lanes and lanes without lines. To overcome this, I recorded extra footages for these sharp turns so the model would learn to make the turns without having to overfit the model with additional epochs
 
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
+As the course was circuit-like and initially I was only going counter-clockwise, most of the data was the car turning left. The easiest solution to this was to just drive clockwise around the circuit to give more variation to my dataset. Furthermore, I also augmented the data by flipping it horizontally. Below is a horizontally flipped version of the image above:
 
-Then I repeated this process on track two in order to get more data points.
-
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
-![alt text][image6]
-![alt text][image7]
-
-Etc ....
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
+![image2]
 
 
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
+After the collection process, I had 27842 number of data points. I then preprocessed this data by cropping the upper 70 pixels and lower 25 pixels of the images as they contained nothing significant for the model to extract infomation from.
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+Initially I tried training my model with 3 epochs, however as the models loss started to increase on the tird epoch, I decreased the number to 2, which achieved a loss of 0.01.
