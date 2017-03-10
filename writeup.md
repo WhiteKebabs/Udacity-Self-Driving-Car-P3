@@ -14,8 +14,8 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
+[image1]: ./figures/correct.jpg "Sample input"
+[image2]: ./figures/flipped "Augmented input"
 
 ---
 
